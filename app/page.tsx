@@ -1,4 +1,3 @@
-import Logo from '@/public/images/logo.svg'
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 

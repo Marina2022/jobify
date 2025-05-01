@@ -1,58 +1,55 @@
 "use client"
 
-import { z } from "zod"
+import {z} from "zod"
 import React from 'react';
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
+import {Form} from "@/components/ui/form";
 import {Button} from "@/components/ui/button";
+import {CustomFormInput, CustomFormSelect} from "@/components/CustomFormFields";
+import {createAndEditJobSchema, JobMode, JobStatus} from "@/utils/types";
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
 
 export function CreateJobForm() {
-  // 1. Define your form.
-  
-  // Убрала уточнение типа в угловых скобках после useForm
-  const form = useForm({
-    resolver: zodResolver(formSchema),
+
+  const form = useForm<z.infer<typeof createAndEditJobSchema>>({
+    resolver: zodResolver(createAndEditJobSchema),
     defaultValues: {
-      username: "",
-    },
+      position: 'haha',
+      company: '',
+      location: '',
+      status: JobStatus.Pending,
+      mode: JobMode.FullTime
+    },    
   })
-  
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+
+
+  const onSubmit = async(values: z.infer<typeof createAndEditJobSchema>) => {
+    console.log('hello')
     console.log(values)
   }
 
-  return (    
-    // <Form {...form}>
+  
+  console.log("formState", form.formState)
+
+  
+    
+  return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-muted p-6 rounded-2xl">
+        <div className="flex gap-5 flex-col sm:flex-row">
+          <CustomFormInput form={form} name='position'/>
+          <CustomFormInput form={form} name='location'/>
+          <CustomFormInput form={form} name='company'/>
+        </div>
+
+        <div className="flex gap-5 items-end flex-col sm:flex-row">
+          <CustomFormSelect form={form} name='status' options={['pending', 'interview', 'declined']}/>
+          <CustomFormSelect form={form} name='mode' options={['full-time', 'part-time', 'internship']}/>
+          <Button className="cursor-pointer w-[185px] text-white" type="submit">Submit</Button>
+        </div>
+
+        
       </form>
     </Form>
   )

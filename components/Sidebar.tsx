@@ -22,7 +22,7 @@ const Sidebar = () => {
             const isActive = path.slice(1) === link.href;
             const buttonVariant = isActive ? 'default' : 'link';
 
-            return <Button asChild variant={buttonVariant as 'default' | 'link'} key={i} >
+            return <Button asChild variant={buttonVariant as 'default' | 'link'} key={i}  >
               <Link
                 href={link.href}                
                 className={`flex gap-2 items-center px-4 py-2 rounded-lg `}

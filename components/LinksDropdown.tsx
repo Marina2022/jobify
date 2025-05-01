@@ -1,12 +1,6 @@
 'use client'
 import React from 'react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator, DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {AlignLeft} from "lucide-react";
 import {links} from "@/utils/links";
@@ -15,8 +9,7 @@ import {usePathname} from "next/navigation";
 
 const LinksDropdown = () => {
   const path = usePathname()
-  const pathName = path.slice(1)
-
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="lg:hidden" asChild>

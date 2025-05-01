@@ -3,6 +3,8 @@ import React, {PropsWithChildren} from 'react';
 import {ThemeProvider} from "@/components/ThemeProvider";
 
 const Providers = ({children}: PropsWithChildren) => {
+  
+  
   return (
     <div>
       <ThemeProvider
