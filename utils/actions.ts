@@ -4,8 +4,13 @@ import {auth} from "@clerk/nextjs/server";
 import {CreateAndEditJob, createAndEditJobSchema} from "@/utils/types";
 import {redirect} from "next/navigation";
 
-import {Job, JobWhereInput, PrismaClient} from '@prisma/client';
+import {Job, PrismaClient} from '@prisma/client';
 
+import * as runtime from "@prisma/client/runtime/library";
+
+export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>
+type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>
+export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
 
 const prisma = new PrismaClient();
 export const creatJob = async (values: CreateAndEditJob): Promise<Job | null> => {
@@ -62,6 +67,21 @@ export const getJobs = async ({search, jobStatus, page = 1, limit = 10}: getJobs
     clerkId = userId
   }
 
+  type StringFilter<$PrismaModel = never> = {
+    contains?: string | StringFieldRefInput<$PrismaModel>
+  }
+
+  type JobWhereInput = {
+    AND?: JobWhereInput | JobWhereInput[]
+    OR?: JobWhereInput[]
+    NOT?: JobWhereInput | JobWhereInput[]
+    clerkId?: StringFilter<"Job"> | string
+    position?: StringFilter<"Job"> | string
+    company?: StringFilter<"Job"> | string
+    status?: StringFilter<"Job"> | string
+    mode?: StringFilter<"Job"> | string
+  }
+
   let whereClause: JobWhereInput = {clerkId}
 
   if (search) {
@@ -75,16 +95,20 @@ export const getJobs = async ({search, jobStatus, page = 1, limit = 10}: getJobs
   }
 
   if (jobStatus && jobStatus !== 'all') {
+    console.log('and here')
     whereClause = {
       ...whereClause, status: jobStatus
     }
   }
+
+  console.log('whereClause', whereClause)
 
   try {
     const jobs = await prisma.job.findMany({
       where: whereClause,
       orderBy: {createdAt: 'desc'}
     })
+
 
     const totalPages = Math.ceil(jobs.length / limit)
     const count = 1
