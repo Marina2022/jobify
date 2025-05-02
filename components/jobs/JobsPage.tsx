@@ -1,7 +1,8 @@
 'use client'
-import React, {useState} from 'react';
+
 import {useQuery} from "@tanstack/react-query";
 import {getJobs} from "@/utils/actions";
+import React, {useState} from "react";
 
 const JobsPage = () => {
   

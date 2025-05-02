@@ -19,7 +19,7 @@ export function CreateJobForm() {
   const form = useForm<z.infer<typeof createAndEditJobSchema>>({
     resolver: zodResolver(createAndEditJobSchema),
     defaultValues: {
-      position: 'haha',
+      position: '',
       company: '',
       location: '',
       status: JobStatus.Pending,
