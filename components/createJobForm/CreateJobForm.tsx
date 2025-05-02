@@ -1,7 +1,7 @@
 "use client"
 
 import {z} from "zod"
-import React, {useState} from 'react';
+import React from 'react';
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form} from "@/components/ui/form";
@@ -9,7 +9,6 @@ import {Button} from "@/components/ui/button";
 import {CustomFormInput, CustomFormSelect} from "@/components/createJobForm/CustomFormFields";
 import {CreateAndEditJob, createAndEditJobSchema, JobMode, JobStatus} from "@/utils/types";
 import {toast} from "sonner";
-import {X} from "lucide-react"
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {creatJob} from "@/utils/actions";
 import {useRouter} from "next/navigation";

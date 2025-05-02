@@ -2,13 +2,14 @@
 import React, {useState} from 'react';
 import {useQuery} from "@tanstack/react-query";
 import {getJobs} from "@/utils/actions";
-import {JobStatus} from "@/utils/types";
 
 const JobsPage = () => {
   
-  const [jobStatus, setJobStatus] = useState('all')
+  // const [jobStatus, setJobStatus] = useState('all')
+  const [jobStatus] = useState('all')
   
-  const {data, isPending} = useQuery({
+  // const {data, isPending} = useQuery({
+  const {data} = useQuery({
     queryFn: ()=>getJobs({search: '', jobStatus: jobStatus, page: 1, limit: 10}),
     queryKey: ['jobs', 'search', 'jobStatus', 'page', 'limit']
   })
