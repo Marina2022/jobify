@@ -1,5 +1,5 @@
 import React from 'react';
-import LinksDropdown from "@/components/LinksDropdown";
+import LinksDropdown from "@/components/layout/LinksDropdown";
 import {UserButton} from "@clerk/nextjs";
 import ThemeToggle from "@/components/ThemeToggle";
 

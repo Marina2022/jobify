@@ -1336,7 +1336,7 @@ export default Providers;
 - add-job/page
 
 ```tsx
-import CreateJobForm from '@/components/CreateJobForm';
+import CreateJobForm from '@/components/createJobForm';
 import {
   dehydrate,
   HydrationBoundary,
