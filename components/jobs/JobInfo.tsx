@@ -1,9 +1,10 @@
 import React from 'react';
 
-const JobInfo = () => {
+const JobInfo = ({icon, text}: { icon: React.ReactNode, text: string }) => {
   return (
-    <div>
-      
+    <div className="flex gap-2 items-center">
+      {icon}
+      {text}
     </div>
   );
 };

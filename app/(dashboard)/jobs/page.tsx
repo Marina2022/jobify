@@ -9,7 +9,7 @@ const Jobs = async () => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery({
-    queryKey: ['jobs'],
+    queryKey: ['jobs', '', 'all', 1],
     queryFn: ()=>getJobs({})
   })
   

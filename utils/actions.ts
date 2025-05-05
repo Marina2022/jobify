@@ -56,6 +56,16 @@ type getJobsParamType = {
   page?: number;
   limit?: number
 }
+
+export const deleteJob = async(id: string):Promise<string | null>=>{
+  try {
+    await prisma.job.delete({where: {id}})
+    return 'success'
+  } catch(err){
+    console.log(err)
+    return null
+  }
+}
 export const getJobs = async ({search, jobStatus, page = 1, limit = 10}: getJobsParamType):
   Promise<{ jobs: Job[], count: number, page: number, totalPages: number } | null> => {
   const {userId} = await auth()
@@ -95,21 +105,16 @@ export const getJobs = async ({search, jobStatus, page = 1, limit = 10}: getJobs
   }
 
   if (jobStatus && jobStatus !== 'all') {
-    console.log('and here')
     whereClause = {
       ...whereClause, status: jobStatus
     }
   }
-
-  console.log('whereClause', whereClause)
 
   try {
     const jobs = await prisma.job.findMany({
       where: whereClause,
       orderBy: {createdAt: 'desc'}
     })
-
-
     const totalPages = Math.ceil(jobs.length / limit)
     const count = 1
 
