@@ -1,5 +1,5 @@
 'use client'
-import React, {useState} from 'react';
+import React from 'react';
 import {keepPreviousData, useQuery} from "@tanstack/react-query";
 import {getJobs} from "@/utils/actions";
 import {useSearchParams} from "next/navigation";
